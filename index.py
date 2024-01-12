@@ -1,11 +1,12 @@
 import settings
 from OpenAI import OpenAI
+from termcolor import cprint
 
 # Create OpenAI instance
 client = OpenAI()
 
 # Welcome message
-print(f'Hello to {settings.APP_NAME}!')
+cprint(f'Hello to {settings.APP_NAME}!', 'green')
 
 # User prompt
 prompt = input('How can I help you today? ')
@@ -13,7 +14,7 @@ if prompt:
     # Run assistant while user needs help
     user_needs_help = True
     while user_needs_help:
-        print('Typing...')
+        cprint('Typing...', 'yellow')
         if not client.thread_id:
             # Create a Thread
             client.create_thread()
@@ -33,7 +34,7 @@ if prompt:
 
         # Retrieve message
         message = client.retrieve_message(message_id)
-        print(message['content'][0]['text']['value'])
+        cprint(message['content'][0]['text']['value'], 'blue')
 
         # Next prompt
         prompt = input('Ask more or type "X" to end: ')
