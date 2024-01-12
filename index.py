@@ -26,14 +26,14 @@ if prompt:
         message_id = ""
         while client.check_run_status() == 'in_progress':
             # Display the Assistant's Response
-            res = client.display_assistant_response()
-            message_id = res['first_id']
+            messages = client.display_assistant_response()
+            for message in reversed(messages['data']):
+                message_id = message['id']
             user_needs_help = False
 
         # Retrieve message
         message = client.retrieve_message(message_id)
-        for item in message['content']:
-            print(item['text']['value'])
+        print(message['content'][0]['text']['value'])
 
         # Next prompt
         prompt = input('Ask more or type "X" to end: ')
