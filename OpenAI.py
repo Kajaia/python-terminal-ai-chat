@@ -61,3 +61,15 @@ class OpenAI(ApiService):
             headers=self.headers
         )
         return res
+    
+    def chat(self, question):
+        json = {
+            "model": settings.OPENAI_BASE_MODEL,
+            "messages": [
+                {"role": "system", "content": settings.OPENAI_INSTRUCTIONS},
+                {"role": "user", "content": question}
+            ]
+        }
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {settings.OPENAI_API_KEY}"}
+        res = super().post_data(url=self.base_url, endpoint=f'/chat/completions', json=json, headers=headers)
+        return res
