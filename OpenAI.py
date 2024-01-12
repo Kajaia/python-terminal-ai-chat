@@ -73,3 +73,9 @@ class OpenAI(ApiService):
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {settings.OPENAI_API_KEY}"}
         res = super().post_data(url=self.base_url, endpoint=f'/chat/completions', json=json, headers=headers)
         return res
+    
+    def create_image(self, prompt):
+        json = {"model": "dall-e-3", "prompt": prompt, "n": 1, "size": "1024x1024"}
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {settings.OPENAI_API_KEY}"}
+        res = super().post_data(url=self.base_url, endpoint=f'/images/generations', json=json, headers=headers)
+        return res
