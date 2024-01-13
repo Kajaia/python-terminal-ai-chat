@@ -70,12 +70,12 @@ class OpenAI(ApiService):
                 {"role": "user", "content": question}
             ]
         }
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {settings.OPENAI_API_KEY}"}
-        res = super().post_data(url=self.base_url, endpoint=f'/chat/completions', json=json, headers=headers)
+        OpenAI.headers.pop('OpenAI-Beta')
+        res = super().post_data(url=self.base_url, endpoint=f'/chat/completions', json=json, headers=self.headers)
         return res
     
     def create_image(self, prompt):
         json = {"model": "dall-e-3", "prompt": prompt, "n": 1, "size": "1024x1024"}
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {settings.OPENAI_API_KEY}"}
-        res = super().post_data(url=self.base_url, endpoint=f'/images/generations', json=json, headers=headers)
+        OpenAI.headers.pop('OpenAI-Beta')
+        res = super().post_data(url=self.base_url, endpoint=f'/images/generations', json=json, headers=self.headers)
         return res
