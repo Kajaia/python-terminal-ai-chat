@@ -22,12 +22,3 @@ if prompt:
         cprint(image['revised_prompt'], 'blue')
         cprint(image['url'], 'red')
         user_needs_help = False
-
-        # Next prompt
-        prompt = input('Generate more or type "X" to end: ')
-        if prompt.upper() == 'X':
-            user_needs_help = False
-        elif prompt:
-            user_needs_help = True
-        else:
-            user_needs_help = False

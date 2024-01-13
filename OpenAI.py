@@ -75,7 +75,7 @@ class OpenAI(ApiService):
         return res
     
     def create_image(self, prompt):
-        json = {"model": "dall-e-3", "prompt": prompt, "n": 1, "size": "1024x1024"}
+        json = {"model": settings.OPENAI_DALLE_MODEL, "prompt": prompt, "n": 1, "size": settings.OPENAI_DALLE_SIZE}
         OpenAI.headers.pop('OpenAI-Beta')
         res = super().post_data(url=self.base_url, endpoint=f'/images/generations', json=json, headers=self.headers)
         return res
